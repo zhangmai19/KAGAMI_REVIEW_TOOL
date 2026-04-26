@@ -1,0 +1,50 @@
+# AutoLitReview-Agent Configuration
+
+# Search settings
+search:
+  max_papers: 150
+  year_from: null
+  year_to: null
+  language: en
+  databases:
+    - openalex
+    - semantic_scholar
+
+# Retrieval settings
+retrieval:
+  openalex:
+    per_page: 50
+    max_pages: 10
+  semantic_scholar:
+    per_page: 100
+    max_pages: 5
+  crossref:
+    per_page: 50
+    max_pages: 10
+  request_delay: 1.0
+  retry_max_attempts: 5
+  retry_min_wait: 2
+  retry_max_wait: 30
+
+# Processing settings
+processing:
+  dedup_similarity_threshold: 0.95
+  require_abstract: true
+  id_prefix: "#"
+
+# Analysis settings
+analysis:
+  model: gpt-4o-mini
+  temperature: 0.0
+  max_tokens_per_chunk: 12000
+  max_papers_per_chunk: 25
+  chunk_overlap: 0
+
+# Output settings
+output:
+  formats:
+    - markdown
+    - json
+  include_evidence_map: true
+  include_coverage_report: true
+  include_search_strategy: true

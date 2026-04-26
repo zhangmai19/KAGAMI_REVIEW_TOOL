@@ -1,0 +1,62 @@
+TY  - JOUR
+TI  - Large Language Models for Automated Literature Review: A Systematic Analysis
+AU  - Zhang, Wei
+AU  - Li, Ming
+AU  - Chen, Jing
+PY  - 2024
+AB  - This paper presents a systematic analysis of large language models applied to automated literature review tasks. We evaluate the effectiveness of different LLM architectures in generating citation-grounded summaries from academic abstracts. Our experiments demonstrate that structured prompting with evidence IDs significantly reduces hallucination compared to free-form generation. The results show that GPT-4 and Claude models achieve the highest accuracy in evidence extraction, while smaller models struggle with maintaining citation fidelity across large document sets.
+JO  - Journal of Artificial Intelligence Research
+DO  - 10.1613/jair.2024.001
+ER  - 
+
+TY  - JOUR
+TI  - Agent-Based Systems for Academic Research Automation
+AU  - Smith, John
+AU  - Johnson, Sarah
+PY  - 2023
+AB  - We propose an agent-based framework for automating academic research workflows. The system integrates multiple specialized agents for literature search, screening, data extraction, and synthesis. Each agent operates within strict constraints to ensure traceability and auditability of the research process. Evaluation on 500 research papers shows that the agent system achieves 87% precision in relevant paper identification and 92% accuracy in data extraction tasks, outperforming traditional keyword-based approaches.
+JO  - ACM Computing Surveys
+DO  - 10.1145/acs.2023.042
+ER  - 
+
+TY  - JOUR
+TI  - Systematic Review Automation Using Natural Language Processing
+AU  - Brown, Alice
+AU  - Davis, Robert
+AU  - Wilson, Emily
+AU  - Taylor, Michael
+PY  - 2023
+AB  - Systematic reviews are essential but time-consuming. We present NLP-SR, a tool that uses natural language processing to semi-automate the systematic review process. The tool assists with study screening, data extraction, and risk of bias assessment. In a comparative evaluation involving three systematic reviews, NLP-SR reduced screening time by 65% while maintaining 95% sensitivity compared to manual screening. The tool implements a human-in-the-loop design to ensure quality control at critical decision points.
+JO  - BMC Medical Research Methodology
+DO  - 10.1186/bmc.2023.089
+ER  - 
+
+TY  - CONF
+TI  - Evidence-Grounded Summarization for Academic Papers
+AU  - Park, Soo-Jin
+AU  - Kim, Hae-Won
+PY  - 2024
+AB  - We introduce a novel framework for generating evidence-grounded summaries of academic papers. Our approach enforces strict citation constraints, requiring every claim in the summary to be traceable to specific text spans in the source document. Experiments on a curated dataset of 200 papers from multiple domains show that our method reduces unsupported claims by 78% compared to baseline summarization models. The framework also provides an evidence map that links each summary sentence to its source evidence.
+JO  - Proceedings of ACL 2024
+ER  - 
+
+TY  - JOUR
+TI  - Automated Boolean Query Generation for Systematic Review Search
+AU  - Garcia, Maria
+AU  - Martinez, Carlos
+PY  - 2022
+AB  - Developing effective search strategies is a critical step in systematic reviews. We present an automated approach for generating Boolean queries from research questions using large language models. The system expands seed keywords into comprehensive search terms including synonyms, variants, and exclusion terms, then constructs database-specific Boolean expressions. Evaluation across 50 systematic review topics shows that automated queries achieve 91% recall compared to expert-crafted queries, with significantly reduced development time.
+JO  - Information Processing & Management
+DO  - 10.1016/ipm.2022.103
+ER  - 
+
+TY  - JOUR
+TI  - Multi-Source Academic Search Integration via Open APIs
+AU  - Thompson, David
+AU  - Lee, Jennifer
+AU  - Anderson, Peter
+PY  - 2023
+AB  - We present a unified framework for searching and aggregating academic literature from multiple open APIs including OpenAlex, Semantic Scholar, and Crossref. The system handles deduplication, metadata normalization, and quality assessment across heterogeneous sources. Our evaluation demonstrates that combining multiple sources increases unique relevant paper coverage by 34% compared to using any single source alone. The framework implements intelligent rate limiting and caching to ensure compliance with API terms of service.
+JO  - Scientometrics
+DO  - 10.1007/sci.2023.056
+ER  - 
