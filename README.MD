@@ -1,4 +1,3 @@
-```markdown
 # KAGAMI_REVIEW_TOOL
 
 > 一个可开源、可扩展、可审计的学术文献综述 Agent  
