@@ -1,62 +1,281 @@
+
+
 TY  - JOUR
-TI  - Large Language Models for Automated Literature Review: A Systematic Analysis
-AU  - Zhang, Wei
-AU  - Li, Ming
-AU  - Chen, Jing
+AU  - Feng, RH
+AU  - Liu, PX
+TI  - Spatio-temporal risk sharing and transfer: A unified theory of multi-period decentralized insurances and annuities
+T2  - JOURNAL OF RISK AND INSURANCE
+AB  - Two distinct strands of research focus on decentralized risk sharing plans. One strand centers on classic risk sharing and decentralized insurance, including peer-to-peer insurance, mutual aid, and DeFi insurance. The other explores decentralized annuities, such as tontine and group self-annuitization. Despite their disparate development paths, both involve decentralized risk sharing and transfer among participants. This paper aims to unify these domains by extending a theory of decentralized insurance to encompass multi-period decentralized insurances and decentralized annuities. The framework illuminates connections between spatial risk sharing and intertemporal risk transfer, and enables economic analysis of diverse scheme designs. The paper also provides a comprehensive review of various notions of temporal and spatial actuarial fairness, elucidating how different designs emerge from these distinct notions.
+SN  - 0022-4367
+SN  - 1539-6975
+DA  - SEP
+PY  - 2025
+VL  - 92
+IS  - 3
+SP  - 765
+EP  - 817
+DO  - 10.1111/jori.70001
+C6  - MAR 2025
+AN  - WOS:001451015400001
+ER  -
+
+TY  - JOUR
+AU  - Feng, RH
+AU  - Liu, M
+AU  - Zhang, N
+TI  - A unified theory of decentralized insurance
+T2  - INSURANCE MATHEMATICS & ECONOMICS
+AB  - Decentralized insurance can be used to describe risk sharing mechanisms under which participants trade risks among each other as opposed to passing risks mostly to an insurer in traditional centralized insurance. There are a wide range of decentralized practices in all kinds of forms developed around the world, including online mutual aid in East Asia, takaful in the Middle East, peer-to-peer insurance in the West, international catastrophe risk pooling by African, Caribbean and Central America countries, etc. There is also a rich literature of risk sharing in academia that offers theoretical bases of other decentralized mechanisms. This work presents a unified mathematical framework to describe the commonalities and the relationships of all these seemingly different business in practice and theoretical models in academia. Such a framework provides a fertile ground for the comparison of existing practices and the design and engineering of hybrid and innovative models.
+SN  - 0167-6687
+SN  - 1873-5959
+DA  - NOV
 PY  - 2024
-AB  - This paper presents a systematic analysis of large language models applied to automated literature review tasks. We evaluate the effectiveness of different LLM architectures in generating citation-grounded summaries from academic abstracts. Our experiments demonstrate that structured prompting with evidence IDs significantly reduces hallucination compared to free-form generation. The results show that GPT-4 and Claude models achieve the highest accuracy in evidence extraction, while smaller models struggle with maintaining citation fidelity across large document sets.
-JO  - Journal of Artificial Intelligence Research
-DO  - 10.1613/jair.2024.001
-ER  - 
+VL  - 119
+SP  - 157
+EP  - 178
+DO  - 10.1016/j.insmatheco.2024.08.008
+C6  - SEP 2024
+AN  - WOS:001326030000001
+ER  -
 
 TY  - JOUR
-TI  - Agent-Based Systems for Academic Research Automation
-AU  - Smith, John
-AU  - Johnson, Sarah
-PY  - 2023
-AB  - We propose an agent-based framework for automating academic research workflows. The system integrates multiple specialized agents for literature search, screening, data extraction, and synthesis. Each agent operates within strict constraints to ensure traceability and auditability of the research process. Evaluation on 500 research papers shows that the agent system achieves 87% precision in relevant paper identification and 92% accuracy in data extraction tasks, outperforming traditional keyword-based approaches.
-JO  - ACM Computing Surveys
-DO  - 10.1145/acs.2023.042
-ER  - 
+AU  - Boonen, TJ
+AU  - Chen, Z
+AU  - Hu, WT
+TI  - Optimal design of fixed and variable costs in peer-to-peer insurance with heterogeneous risk
+T2  - ASTIN BULLETIN-THE JOURNAL OF THE INTERNATIONAL ACTUARIAL ASSOCIATION
+AB  - This paper examines the optimal design of peer-to-peer (P2P) insurance models, which combines outside insurance purchases with P2P risk sharing and heterogeneous risk. Participants contribute deposits to collectively cover the premium for group-based insurance against tail risks and to share uncovered losses. We analyze the cost structure by decomposing it into a fixed premium for outside coverage and a variable component for shared losses, the latter of which may be partially refunded if aggregate losses are sufficiently low. We derive closed-form solutions to the optimal sharing rule that maximizes a mean-variance objective from the perspective of a central or social planner, and we characterize its theoretical properties. Building on this foundation, we further investigate the choice of deposit for the common fund. Finally, we also provide numerical illustrations.
+SN  - 0515-0361
+SN  - 1783-1350
+DA  - SEP
+PY  - 2025
+VL  - 55
+IS  - 3
+SP  - 721
+EP  - 746
+DO  - 10.1017/asb.2025.10065
+C6  - SEP 2025
+AN  - WOS:001575164400001
+ER  -
 
 TY  - JOUR
-TI  - Systematic Review Automation Using Natural Language Processing
-AU  - Brown, Alice
-AU  - Davis, Robert
-AU  - Wilson, Emily
-AU  - Taylor, Michael
-PY  - 2023
-AB  - Systematic reviews are essential but time-consuming. We present NLP-SR, a tool that uses natural language processing to semi-automate the systematic review process. The tool assists with study screening, data extraction, and risk of bias assessment. In a comparative evaluation involving three systematic reviews, NLP-SR reduced screening time by 65% while maintaining 95% sensitivity compared to manual screening. The tool implements a human-in-the-loop design to ensure quality control at critical decision points.
-JO  - BMC Medical Research Methodology
-DO  - 10.1186/bmc.2023.089
-ER  - 
+AU  - Medved, D
+TI  - Dynamic pricing and solvency of peer-to-peer insurance: a framework for transparency, risk sharing, and financial sustainability
+T2  - RISK MANAGEMENT-AN INTERNATIONAL JOURNAL
+AB  - This paper explores various peer-to-peer (P2P) insurance models with a focus on dynamic pricing and solvency. To address individual peers' solvency risks, it assumes that premiums or contributions are paid ex-ante. The study examines three P2P models: full risk transfer, partial risk transfer with aggregate stop-loss arrangements, and full risk retention within the community. The analysis introduces an extended risk-sharing model incorporating aggregate stop-loss arrangements, evaluating how varying excess points affect the coverage ratio, a critical measure of a scheme's solvency. The paper evaluates solvency criteria for P2P schemes and highlights the scalability and flexibility of P2P arrangements in mitigating insolvency risks. The paper further proposes dynamic pricing models for P2P insurance, leveraging credibility theory to enhance transparency. These models enable participants to benefit from direct and indirect cash-back while allowing the scheme to achieve desired solvency levels.
+SN  - 1460-3799
+SN  - 1743-4637
+DA  - JUL 12
+PY  - 2025
+VL  - 27
+IS  - 3
+C7  - 11
+DO  - 10.1057/s41283-025-00164-w
+AN  - WOS:001528838600001
+ER  -
 
-TY  - CONF
-TI  - Evidence-Grounded Summarization for Academic Papers
-AU  - Park, Soo-Jin
-AU  - Kim, Hae-Won
+TY  - JOUR
+AU  - Ghossoub, M
+AU  - Zhu, MB
+AU  - Chong, WF
+TI  - Pareto-optimal peer-to-peer risk sharing with robust distortion risk measures
+T2  - ASTIN BULLETIN-THE JOURNAL OF THE INTERNATIONAL ACTUARIAL ASSOCIATION
+AB  - We study Pareto optimality in a decentralized peer-to-peer risk-sharing market where agents' preferences are represented by robust distortion risk measures that are not necessarily convex. We obtain a characterization of Pareto-optimal allocations of the aggregate risk in the market, and we show that the shape of the allocations depends primarily on each agent's assessment of the tail of the aggregate risk. We quantify the latter via an index of probabilistic risk aversion, and we illustrate our results using concrete examples of popular families of distortion functions. As an application of our results, we revisit the market for flood risk insurance in the United States. We present the decentralized risk sharing arrangement as an alternative to the current centralized market structure, and we characterize the optimal allocations in a numerical study with historical flood data. We conclude with an in-depth discussion of the advantages and disadvantages of a decentralized insurance scheme in this setting.
+SN  - 0515-0361
+SN  - 1783-1350
+DA  - SEP
+PY  - 2025
+VL  - 55
+IS  - 3
+SP  - 537
+EP  - 563
+DO  - 10.1017/asb.2025.6
+C6  - MAR 2025
+AN  - WOS:001441510000001
+ER  -
+
+TY  - JOUR
+AU  - Anthropelos, M
+AU  - Feng, RH
+AU  - Kim, S
+TI  - On the Expansion of Risk Pooling
+T2  - MANAGEMENT SCIENCE
+AB  - Risk pooling has become an increasingly critical tool for managing risks among corporations, institutions, states, and nations, with examples including multinational pooling, decentralized insurance schemes, catastrophe risk pooling, and burden sharing for nuclear accidents. Although there has been a rich literature on such practices, little is known from a theoretical viewpoint regarding the operational strategies of risk pools and, in particular, on issues about the effect of a pool's expansion on each existing member's welfare. This paper is the first to explore these issues by establishing different notions of consensus for the expansion of a risk pool: strong consensus, where both existing members and new candidates improve their risk measures due to the pool's expansion, and weak consensus, which refers to the willingness of existing members to remain in the pool. Under optimal risk sharing for each pool, we show that its properties regarding expansion's effects depend strongly on the underlying pricing rule. For instance, only with riskadjusted equilibrium pricing are existing members willing to accept highly risky new members, whereas simple linear pricing excludes such members from the pool. Additionally, the impact of exogenous reinsurance on consensus is analyzed under both pricing rules. The established framework offers valuable managerial insights and policy implications, which we illustrate through two indicative case studies based on real data.
+SN  - 0025-1909
+SN  - 1526-5501
+DA  - 2026 JAN 2
+PY  - 2026
+DO  - 10.1287/mnsc.2024.06863
+C6  - JAN 2026
+AN  - WOS:001655707000001
+ER  -
+
+TY  - JOUR
+AU  - Galeotti, M
+AU  - Rabitti, G
+TI  - Tail variance allocation, Shapley value, and the majorization problem
+T2  - JOURNAL OF APPLIED PROBABILITY
+AB  - With a focus on the risk contribution in a portofolio of dependent risks, Colini-Baldeschi et al. (2018) introduced Shapley values for variance and standard deviation games. In this note we extend their results, introducing tail variance as well as tail standard deviation games. We derive closed-form expressions for the Shapley values for the tail variance game and we analyze the vector majorization problem for the two games. In particular, we construct two examples showing that the risk contribution rankings for the two games may be inverted depending on the conditioning threshold and the tail fatness. Motivated by these examples, we formulate a conjecture for general portfolios. Lastly, we discuss risk management implications, including the characterization of tail covariance premiums and reinsurance pricing for peer-to-peer insurance policies.
+SN  - 0021-9002
+SN  - 1475-6072
+DA  - MAR
 PY  - 2024
-AB  - We introduce a novel framework for generating evidence-grounded summaries of academic papers. Our approach enforces strict citation constraints, requiring every claim in the summary to be traceable to specific text spans in the source document. Experiments on a curated dataset of 200 papers from multiple domains show that our method reduces unsupported claims by 78% compared to baseline summarization models. The framework also provides an evidence map that links each summary sentence to its source evidence.
-JO  - Proceedings of ACL 2024
-ER  - 
+VL  - 61
+IS  - 1
+SP  - 153
+EP  - 171
+C7  - PII S0021900223000281
+DO  - 10.1017/jpr.2023.28
+C6  - JUN 2023
+AN  - WOS:001007749900001
+ER  -
 
 TY  - JOUR
-TI  - Automated Boolean Query Generation for Systematic Review Search
-AU  - Garcia, Maria
-AU  - Martinez, Carlos
-PY  - 2022
-AB  - Developing effective search strategies is a critical step in systematic reviews. We present an automated approach for generating Boolean queries from research questions using large language models. The system expands seed keywords into comprehensive search terms including synonyms, variants, and exclusion terms, then constructs database-specific Boolean expressions. Evaluation across 50 systematic review topics shows that automated queries achieve 91% recall compared to expert-crafted queries, with significantly reduced development time.
-JO  - Information Processing & Management
-DO  - 10.1016/ipm.2022.103
-ER  - 
+AU  - Denuit, M
+AU  - Robert, CY
+TI  - Conditional Mean Risk Sharing of Independent Discrete Losses in Large Pools
+T2  - METHODOLOGY AND COMPUTING IN APPLIED PROBABILITY
+AB  - This paper considers a risk sharing scheme of independent discrete losses that combines risk retention at individual level, risk transfer for too expensive losses and risk pooling for the middle layer. This ensures that pooled losses can be considered as being uniformly bounded. We study the no-sabotage requirement and diversification effects when the conditional mean risk-sharing rule is applied to allocate pooled losses. The no-sabotage requirement is equivalent to Efron's monotonicity property for conditional expectations, which is known to hold under log-concavity. Elementary proofs of this result for discrete losses are provided for finite population pools. The no-sabotage requirement and diversification effects are then examined within large pools. It is shown that Efron's monotonicity property holds asymptotically and that risk can be eliminated under fairly general conditions which are fulfilled in applications.
+SN  - 1387-5841
+SN  - 1573-7713
+DA  - DEC
+PY  - 2024
+VL  - 26
+IS  - 4
+C7  - 36
+DO  - 10.1007/s11009-024-10106-w
+AN  - WOS:001314022000001
+ER  -
 
 TY  - JOUR
-TI  - Multi-Source Academic Search Integration via Open APIs
-AU  - Thompson, David
-AU  - Lee, Jennifer
-AU  - Anderson, Peter
-PY  - 2023
-AB  - We present a unified framework for searching and aggregating academic literature from multiple open APIs including OpenAlex, Semantic Scholar, and Crossref. The system handles deduplication, metadata normalization, and quality assessment across heterogeneous sources. Our evaluation demonstrates that combining multiple sources increases unique relevant paper coverage by 34% compared to using any single source alone. The framework implements intelligent rate limiting and caching to ensure compliance with API terms of service.
-JO  - Scientometrics
-DO  - 10.1007/sci.2023.056
-ER  - 
+AU  - Wang, HL
+AU  - Yang, J
+AU  - Li, GJJ
+AU  - Wu, FZ
+AU  - Lin, YH
+AU  - Liao, FR
+AU  - Jia, LG
+TI  - Outage risk management for residential users considering distribution network reliability assessment: A P2P outage insurance approach
+T2  - ELECTRIC POWER SYSTEMS RESEARCH
+AB  - The increasing integration of renewable energy sources and the rising frequency of extreme weather events have exacerbated supply-demand imbalances and heightened power outage risks. To mitigate these risks for residential users, this paper proposes a P2P outage insurance mechanism. A chain reinsurance framework is established, involving system operators, insurance intermediaries, and residential users, based on a pool-type P2P insurance model, along with its associated business processes. Premiums are determined using the standard deviation principle, while outage losses in complex networks are calculated through a reliability assessment method based on two-way traversal search. Furthermore, a premium sharing mechanism within mutual aid groups is developed using the Shapley value, accounting for the heterogeneous outage risks and losses of different users. The feasibility and effectiveness of the proposed mechanism are validated using an IEEE-RBTS numerical example. Results demonstrate that the mechanism enables effective risk sharing and fair cost allocation, indirectly enhancing system reliability, while reducing premiums by 22 % compared to traditional insurance. Accurate reliability assessment can be realized for distribution networks with backup power and sub- feeders.
+SN  - 0378-7796
+SN  - 1873-2046
+DA  - AUG
+PY  - 2025
+VL  - 245
+C7  - 111590
+DO  - 10.1016/j.epsr.2025.111590
+C6  - MAR 2025
+AN  - WOS:001442814900001
+ER  -
+
+TY  - JOUR
+AU  - Braun, RA
+AU  - Todd, RM
+AU  - Wallace, N
+TI  - A general equilibrium interpretation of damage-contingent securities
+T2  - JOURNAL OF RISK AND INSURANCE
+AB  - Cass, Chichilnisky, and Wu (1996) show in an endowment economy that mutual insurance and securities contingent on aggregate states support optimal risk-sharing. We extend their result to a model with production in which risk is endogenous and beliefs about the aggregate state vary across individuals. We use the model to interpret the role of new securities that are contingent on measures of total damage from natural catastrophes. Plausible special cases of the model predict the trade pattern in such securities across diverse regions and predict that such securities will not represent actuarially fair gambles.
+SN  - 0022-4367
+DA  - DEC
+PY  - 1999
+VL  - 66
+IS  - 4
+SP  - 583
+EP  - 595
+DO  - 10.2307/253864
+AN  - WOS:000085994200003
+ER  -
+
+TY  - JOUR
+AU  - GOLLIER, C
+AU  - WIBAUT, S
+TI  - PORTFOLIO SELECTION BY MUTUAL INSURANCE COMPANIES AND OPTIMAL PARTICIPATING INSURANCE POLICIES
+T2  - INSURANCE MATHEMATICS & ECONOMICS
+AB  - The specific problem of portfolio selection by insurance companies is addressed in this paper. Assuming risk aversion on capital markets, it is optimal to transfer part of the investment risk to policyholders (participating policies), as done in life insurance. This remark leads to two results. First, it implies that underwriting profits should be countercyclic. Second, it allows for riskier investments by the insurer. Indeed, optimal risk transfer increases the risk tolerance of the pool. Regulatory constraints on investment behavior in the insurance industry may then be questioned when participating policies are provided.
+SN  - 0167-6687
+DA  - OCT
+PY  - 1992
+VL  - 11
+IS  - 3
+SP  - 237
+EP  - 245
+DO  - 10.1016/0167-6687(92)90029-B
+AN  - WOS:A1992KF97500007
+ER  -
+
+TY  - JOUR
+AU  - Albrecht, P
+AU  - Huggenberger, M
+TI  - The fundamental theorem of mutual insurance
+T2  - INSURANCE MATHEMATICS & ECONOMICS
+AB  - The essence of mutual insurance is the notion that re-distributing risk in a pool of risks is more beneficial than taking the risk alone. Interpreting 'more beneficial' as an increase in utility and considering sequences of exchangeable risks, we are able to formalize this notion from the policyholder's perspective and demonstrate its validity for various alternative preference functionals (e.g., expected utility, Choquet expected utility, and distortion risk measures). To obtain this result, we exploit that for a sequence of exchangeable risks the corresponding sequence of arithmetical averages is a reversed martingale. We conclude that pooling risks is fundamental for understanding the mechanisms of insurance because it favourably affects the utility of policyholders, and we refer to this phenomenon as the 'utility improving effect of risk pooling'. Moreover, we demonstrate that the utility of the policyholder is (strictly) increasing with the size of the risk pool. (C) 2017 Elsevier B.V. All rights reserved.
+SN  - 0167-6687
+SN  - 1873-5959
+DA  - JUL
+PY  - 2017
+VL  - 75
+SP  - 180
+EP  - 188
+DO  - 10.1016/j.insmatheco.2017.06.002
+AN  - WOS:000406983200016
+ER  -
+
+TY  - JOUR
+AU  - Shah, HC
+AU  - Dong, WM
+AU  - Stojanovski, P
+AU  - Chen, A
+TI  - Evolution of seismic risk management for insurance over the past 30 years
+T2  - EARTHQUAKE ENGINEERING AND ENGINEERING VIBRATION
+AB  - During the past 30 years, there has been spectacular growth in the use of risk analysis and risk management tools developed by engineers in the financial and insurance sectors. The insurance, the reinsurance, and the investment banking sectors have enthusiastically adopted loss estimation tools developed by engineers in developing their business strategies and for managing their financial risks. As a result, insurance/reinsurance strategy has evolved as a major risk mitigation tool in managing catastrophe risk at the individual, corporate, and government level. This is particularly true in developed countries such as US, Western Europe, and Japan. Unfortunately, it has not received the needed attention in developing countries, where such a strategy for risk management is most needed. Fortunately, in the last five years, there has been excellent focus in developing "InsurTech" tools to address the much needed "Insurance for the Masses", especially for the Asian Markets.
+   In the earlier years of catastrophe model development, risk analysts were mainly concerned with risk reduction options through engineering strategies, and relatively little attention was given to financial and economic strategies. Such state-of-affairs still exists in many developing countries. The new developments in the science and technologies of loss estimation due to natural catastrophes have made it possible for financial sectors to model their business strategies such as peril and geographic diversification, premium calculations, reserve strategies, reinsurance contracts, and other underwriting tools. These developments have not only changed the way in which financial sectors assess and manage their risks, but have also changed the domain of opportunities for engineers and scientists.
+   This paper will address the issues related to developing insurance/reinsurance strategies to mitigate catastrophe risks and describe the role catastrophe risk insurance and reinsurance has played in managing financial risk due to natural catastrophes. Historical losses and the share of those losses covered by insurance will be presented. How such risk sharing can help the nation share the burden of losses between tax paying public, the "at risk" property owners, the insurers and the reinsurers will be discussed. The paper will summarize the tools that are used by the insurance and reinsurance companies for estimating their future losses due to catastrophic natural events. The paper will also show how the results of loss estimation technologies developed by engineers are communicated to the business flow of insurance/reinsurance companies. Finally, to make it possible to grow "Insurance for the Masses-IFM", the role played by parametric insurance products and InsurTech tools will be discussed.
+SN  - 1671-3664
+SN  - 1993-503X
+DA  - JAN
+PY  - 2018
+VL  - 17
+IS  - 1
+SP  - 11
+EP  - 18
+DO  - 10.1007/s11803-018-0421-5
+AN  - WOS:000419951600002
+ER  -
+
+TY  - JOUR
+AU  - Denuit, M
+AU  - Robert, CY
+TI  - Risk sharing under the dominant peer-to-peer property and casualty insurance business models
+T2  - RISK MANAGEMENT AND INSURANCE REVIEW
+AB  - This paper purposes to formalize the three business models dominating peer-to-peer (P2P) property and casualty insurance: the self-governing model, the broker model, and the carrier model. The former one develops outside the insurance market whereas the latter ones may originate from the insurance industry, by partnering with an existing company or by issuing a new generation of participating insurance policies where part of the risk is shared within a community and higher losses, exceeding the community's risk-bearing capacity are covered by an insurance or reinsurance company. The present paper proposes an actuarial modeling based on conditional mean risk sharing, to support the development of this new P2P insurance offer under each of the three business models. In addition, several specific questions are also addressed in the self-governing model. Considering an economic agent who has to select the optimal pool for a risk to be shared with other participants, it is shown that uniform comparison of the Lorenz or concentration curves associated to the respective total losses of the pools under consideration allows the agent to decide which pool is preferable.
+SN  - 1098-1616
+SN  - 1540-6296
+PY  - 2021
+VL  - 24
+IS  - 2
+SP  - 181
+EP  - 205
+DO  - 10.1111/rmir.12180
+C6  - JUN 2021
+AN  - WOS:000660459000001
+ER  -
+
+TY  - JOUR
+AU  - Laux, C
+AU  - Muermann, A
+TI  - Financing risk transfer under governance problems: Mutual versus stock insurers
+T2  - JOURNAL OF FINANCIAL INTERMEDIATION
+AB  - Mutual insurance companies and stock insurance companies are different forms of organized risk sharing: policyholders and owners are two distinct groups in a stock insurer, while they are one and the same in a mutual. This distinction is relevant to raising capital and selling policies in the presence of frictional cost of capital. Free-rider and commitment problems in a stock insurer limit shareholders' compensation for the frictional cost and therefore the level of capital that can be raised. By tying sales of policies to the provision of capital, the mutual form can overcome these problems at the cost of less diversified owners. (C) 2009 Elsevier Inc. All rights reserved.
+SN  - 1042-9573
+SN  - 1096-0473
+DA  - JUL
+PY  - 2010
+VL  - 19
+IS  - 3
+SP  - 333
+EP  - 354
+DO  - 10.1016/j.jfi.2009.06.002
+AN  - WOS:000278970400003
+ER  -
+
