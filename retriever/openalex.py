@@ -1,5 +1,11 @@
-"""OpenAlex academic database retriever."""
+"""OpenAlex academic database retriever.
 
+Strategy: "Broad recall via API, precise filtering via Python boolean logic."
+When keyword_groups are provided, the retriever fetches more results from
+OpenAlex and then applies boolean_filter() to narrow them down.
+"""
+
+import os
 from typing import List, Optional
 
 import httpx
@@ -8,6 +14,7 @@ from tenacity import retry, stop_after_attempt, wait_exponential
 from models.paper import Paper
 from retriever.base import BaseRetriever
 from utils.text import clean_abstract, normalize_doi
+from utils.boolean_filter import boolean_filter
 from utils.logging import get_logger
 
 logger = get_logger(__name__)
@@ -24,7 +31,7 @@ class OpenAlexRetriever(BaseRetriever):
     BASE_URL = "https://api.openalex.org/works"
 
     def __init__(self, email: Optional[str] = None):
-        self.email = email
+        self.email = email or os.getenv("OPENALEX_EMAIL")
 
     @property
     def name(self) -> str:
@@ -46,8 +53,30 @@ class OpenAlexRetriever(BaseRetriever):
         max_results: int = 100,
         from_year: Optional[int] = None,
         to_year: Optional[int] = None,
+        keyword_groups: Optional[List[List[str]]] = None,
     ) -> List[Paper]:
-        """Search OpenAlex for papers matching the query."""
+        """Search OpenAlex for papers matching the query.
+
+        When keyword_groups are provided, uses a broad-recall strategy:
+        fetches more results from the API, then applies boolean_filter()
+        to precisely narrow down to papers matching the AND/OR logic.
+
+        Args:
+            query: Broad recall query string (e.g. "insurance risk model").
+            max_results: Desired number of final results.
+            from_year: Start year filter (inclusive).
+            to_year: End year filter (inclusive).
+            keyword_groups: Optional boolean filter groups for post-filtering.
+        """
+        # If boolean filtering is active, fetch more to compensate for filtering loss
+        fetch_limit = max_results
+        if keyword_groups:
+            fetch_limit = max(max_results * 5, 500)
+            logger.info(
+                f"Boolean filtering active: fetching {fetch_limit} papers "
+                f"to filter down to ~{max_results}"
+            )
+
         papers: List[Paper] = []
         per_page = 50
         page = 1
@@ -58,7 +87,7 @@ class OpenAlexRetriever(BaseRetriever):
         if to_year:
             filters.append(f"to_publication_date:{to_year}-12-31")
 
-        while len(papers) < max_results:
+        while len(papers) < fetch_limit:
             params = {
                 "search": query,
                 "per-page": per_page,
@@ -118,7 +147,7 @@ class OpenAlexRetriever(BaseRetriever):
                     )
                 )
 
-                if len(papers) >= max_results:
+                if len(papers) >= fetch_limit:
                     break
 
             # Check if there are more pages
@@ -132,8 +161,14 @@ class OpenAlexRetriever(BaseRetriever):
             if page > 20:  # Safety limit
                 break
 
-        logger.info(f"OpenAlex: retrieved {len(papers)} papers")
-        return papers
+        logger.info(f"OpenAlex: retrieved {len(papers)} papers before filtering")
+
+        # Apply boolean filtering if keyword_groups are provided
+        if keyword_groups:
+            papers = boolean_filter(papers, keyword_groups)
+            logger.info(f"After boolean filtering: {len(papers)} papers")
+
+        return papers[:max_results]
 
     @staticmethod
     def _reconstruct_abstract(index: Optional[dict]) -> Optional[str]:

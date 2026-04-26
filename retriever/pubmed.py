@@ -1,5 +1,6 @@
 """PubMed academic database retriever via Entrez API."""
 
+import os
 from typing import List, Optional
 import xml.etree.ElementTree as ET
 
@@ -9,6 +10,7 @@ from tenacity import retry, stop_after_attempt, wait_exponential
 from models.paper import Paper
 from retriever.base import BaseRetriever
 from utils.text import clean_abstract, normalize_doi
+from utils.boolean_filter import boolean_filter
 from utils.logging import get_logger
 
 logger = get_logger(__name__)
@@ -25,8 +27,8 @@ class PubMedRetriever(BaseRetriever):
     FETCH_URL = "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi"
 
     def __init__(self, api_key: Optional[str] = None, email: Optional[str] = None):
-        self.api_key = api_key
-        self.email = email
+        self.api_key = api_key or os.getenv("PUBMED_API_KEY")
+        self.email = email or os.getenv("PUBMED_EMAIL")
 
     @property
     def name(self) -> str:
@@ -52,6 +54,7 @@ class PubMedRetriever(BaseRetriever):
         max_results: int = 100,
         from_year: Optional[int] = None,
         to_year: Optional[int] = None,
+        keyword_groups: Optional[List[List[str]]] = None,
     ) -> List[Paper]:
         """Search PubMed for papers matching the query."""
         # Build date filter
@@ -100,7 +103,12 @@ class PubMedRetriever(BaseRetriever):
         # Step 3: Parse XML
         papers = self._parse_xml(xml_text)
 
-        logger.info(f"PubMed: retrieved {len(papers)} papers")
+        logger.info(f"PubMed: retrieved {len(papers)} papers before filtering")
+
+        if keyword_groups:
+            papers = boolean_filter(papers, keyword_groups)
+            logger.info(f"After boolean filtering: {len(papers)} papers")
+
         return papers[:max_results]
 
     def _parse_xml(self, xml_text: str) -> List[Paper]:

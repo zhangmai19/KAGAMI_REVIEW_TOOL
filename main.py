@@ -3,7 +3,8 @@
 An open-source agent for citation-grounded, abstract-based academic literature review.
 """
 
-from typing import Optional
+import json
+from typing import List, Optional
 
 import typer
 from dotenv import load_dotenv
@@ -94,7 +95,17 @@ def review_from_csv(
 def review_from_search(
     topic: str = typer.Option(..., "--topic", "-t", help="Research topic"),
     keywords: Optional[list[str]] = typer.Option(None, "--keyword", "-k", help="Search keywords (can specify multiple)"),
-    databases: Optional[list[str]] = typer.Option(None, "--database", "-d", help="Databases to search"),
+    keyword_group: Optional[list[str]] = typer.Option(
+        None,
+        "--keyword-group",
+        "-g",
+        help=(
+            "Keyword group for boolean filtering (repeat for AND groups). "
+            'Comma-separated terms within a group are OR. '
+            'E.g. -g "reinsurance,risk transfer" -g "mutual insurance,insurtech" -g "risk sharing"'
+        ),
+    ),
+    databases: Optional[list[str]] = typer.Option(None, "--database", "-d", help="Databases to search (openalex, semantic_scholar, crossref, pubmed, arxiv, scholar)"),
     max_papers: int = typer.Option(150, "--max-papers", help="Maximum papers to retrieve"),
     from_year: Optional[int] = typer.Option(None, "--from-year", help="Start year filter"),
     to_year: Optional[int] = typer.Option(None, "--to-year", help="End year filter"),
@@ -103,11 +114,37 @@ def review_from_search(
     max_tokens: int = typer.Option(12000, "--max-tokens", help="Max tokens per chunk"),
     max_papers_per_chunk: int = typer.Option(25, "--max-papers", help="Max papers per chunk"),
 ):
-    """Run a literature review by searching academic databases."""
+    """Run a literature review by searching academic databases.
+
+    Boolean filtering: use --keyword-group (-g) to define AND groups.
+    Terms within a group are OR-connected. Groups are AND-connected.
+
+    Examples:
+      # Simple search (LLM expands keywords automatically)
+      autolitreview review-from-search -t "AI in healthcare" -k "machine learning" -k "diagnosis"
+
+      # With boolean groups (skips LLM expansion, uses precise filtering)
+      autolitreview review-from-search -t "Insurance risk" \\
+        -g "reinsurance,risk transfer,cat bond" \\
+        -g "mutual insurance,insurtech,blockchain insurance" \\
+        -g "risk sharing,risk pooling"
+    """
     load_dotenv()
 
     if not keywords:
         keywords = [topic]
+
+    # Parse keyword_groups from --keyword-group arguments
+    kw_groups = None
+    if keyword_group:
+        kw_groups = []
+        for group_str in keyword_group:
+            terms = [t.strip() for t in group_str.split(",") if t.strip()]
+            if terms:
+                kw_groups.append(terms)
+        console.print(f"[bold]Boolean filter:[/bold] {len(kw_groups)} AND-groups")
+        for i, group in enumerate(kw_groups, 1):
+            console.print(f"  Group {i} (OR): {', '.join(group)}")
 
     agent = LiteratureReviewAgent(
         model=model,
@@ -123,6 +160,7 @@ def review_from_search(
         max_papers=max_papers,
         from_year=from_year,
         to_year=to_year,
+        keyword_groups=kw_groups,
     )
 
     _print_result(result)

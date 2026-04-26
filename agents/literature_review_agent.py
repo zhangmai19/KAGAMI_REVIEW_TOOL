@@ -12,6 +12,9 @@ from retriever.base import BaseRetriever
 from retriever.openalex import OpenAlexRetriever
 from retriever.semantic_scholar import SemanticScholarRetriever
 from retriever.crossref import CrossrefRetriever
+from retriever.pubmed import PubMedRetriever
+from retriever.arxiv_retriever import ArxivRetriever
+from retriever.scholar import ScholarRetriever
 from query.keyword_expander import KeywordExpander
 from query.boolean_builder import get_builder, BooleanQueryBuilder
 from parser.ris_parser import parse_ris_file
@@ -99,6 +102,7 @@ class LiteratureReviewAgent:
         max_papers: int = 150,
         from_year: Optional[int] = None,
         to_year: Optional[int] = None,
+        keyword_groups: Optional[List[List[str]]] = None,
     ) -> Dict[str, Any]:
         """Run a literature review by searching academic databases.
 
@@ -109,6 +113,9 @@ class LiteratureReviewAgent:
             max_papers: Maximum papers to retrieve.
             from_year: Start year filter.
             to_year: End year filter.
+            keyword_groups: Optional pre-defined boolean filter groups.
+                If provided, skips LLM keyword expansion and uses these directly.
+                Format: [["A1", "A2"], ["B1", "B2"]] => (A1 OR A2) AND (B1 OR B2)
 
         Returns:
             Complete review result dictionary.
@@ -116,29 +123,45 @@ class LiteratureReviewAgent:
         console.print("[bold blue]Starting literature review from search...[/bold blue]")
         databases = databases or ["openalex", "semantic_scholar"]
 
-        # Step 1: Expand keywords
+        # Step 1: Expand keywords or use provided keyword_groups
         console.print("[bold]Step 1:[/bold] Expanding keywords...")
-        expanded = self.keyword_expander.expand(topic, keywords)
+        if keyword_groups:
+            # User provided keyword_groups directly — skip LLM expansion
+            console.print("  Using provided keyword_groups (skipping LLM expansion)")
+            expanded = self._keyword_groups_to_expanded(keyword_groups)
+        else:
+            expanded = self.keyword_expander.expand(topic, keywords)
 
         search_strategy = {
             "expanded_keywords": expanded,
             "boolean_queries": {},
+            "keyword_groups": {},
+            "broad_queries": {},
         }
 
-        # Step 2: Generate boolean queries
+        # Step 2: Generate boolean queries + keyword_groups per database
         console.print("[bold]Step 2:[/bold] Generating boolean queries...")
         for db in databases:
             try:
                 builder = get_builder(db)
-                query = builder.build(expanded)
-                search_strategy["boolean_queries"][builder.database_name] = query
+                query_artifacts = builder.build_all(expanded)
+                search_strategy["boolean_queries"][builder.database_name] = (
+                    query_artifacts["boolean_query"]
+                )
+                search_strategy["keyword_groups"][builder.database_name] = (
+                    query_artifacts["keyword_groups"]
+                )
+                search_strategy["broad_queries"][builder.database_name] = (
+                    query_artifacts["broad_query"]
+                )
             except ValueError as e:
                 logger.warning(f"Skipping unknown database: {db} ({e})")
 
-        # Step 3: Search databases
+        # Step 3: Search databases (using boolean queries)
         console.print("[bold]Step 3:[/bold] Searching databases...")
         all_papers = self._search_databases(
-            topic, keywords, databases, max_papers, from_year, to_year
+            topic, keywords, databases, max_papers, from_year, to_year,
+            search_strategy=search_strategy,
         )
 
         # Step 4: Process papers
@@ -184,34 +207,66 @@ class LiteratureReviewAgent:
         max_papers: int,
         from_year: Optional[int],
         to_year: Optional[int],
+        search_strategy: Optional[Dict[str, Any]] = None,
     ) -> List[Paper]:
-        """Search multiple academic databases."""
-        retrievers: List[BaseRetriever] = []
+        """Search multiple academic databases using boolean queries.
 
-        for db in databases:
-            db_lower = db.lower()
-            if db_lower == "openalex":
-                retrievers.append(OpenAlexRetriever())
-            elif db_lower == "semantic_scholar":
-                retrievers.append(SemanticScholarRetriever())
-            elif db_lower == "crossref":
-                retrievers.append(CrossrefRetriever())
-            else:
-                logger.warning(f"Unknown database: {db}")
+        For each database, uses:
+        - broad_query for the API search (maximize recall)
+        - keyword_groups for post-retrieval boolean filtering (precision)
+        """
+        # Map database names to retriever instances
+        db_retriever_map = {
+            "openalex": OpenAlexRetriever,
+            "semantic_scholar": SemanticScholarRetriever,
+            "crossref": CrossrefRetriever,
+            "pubmed": PubMedRetriever,
+            "arxiv": ArxivRetriever,
+            "scholar": ScholarRetriever,
+        }
 
         all_papers: List[Paper] = []
 
-        for retriever in retrievers:
+        for db in databases:
+            db_lower = db.lower()
+
+            retriever_class = db_retriever_map.get(db_lower)
+            if retriever_class is None:
+                logger.warning(f"Unknown database: {db}")
+                continue
+
+            retriever = retriever_class()
+
+            # Get database-specific query artifacts
+            broad_query = " ".join(keywords)  # fallback
+            kw_groups = None
+
+            if search_strategy:
+                db_name = retriever.name
+                broad_query = search_strategy.get(
+                    "broad_queries", {}
+                ).get(db_name, broad_query)
+                kw_groups = search_strategy.get(
+                    "keyword_groups", {}
+                ).get(db_name)
+
             try:
-                query = " ".join(keywords)
                 papers = retriever.search(
-                    query=query,
+                    query=broad_query,
                     max_results=max_papers,
                     from_year=from_year,
                     to_year=to_year,
+                    keyword_groups=kw_groups,
                 )
                 all_papers.extend(papers)
-                console.print(f"  {retriever.name}: {len(papers)} papers")
+                filter_info = (
+                    f" (filtered from broader recall)"
+                    if kw_groups
+                    else ""
+                )
+                console.print(
+                    f"  {retriever.name}: {len(papers)} papers{filter_info}"
+                )
             except Exception as e:
                 logger.error(f"Failed to search {retriever.name}: {e}")
                 console.print(f"  [red]{retriever.name}: Failed - {e}[/red]")
@@ -401,3 +456,26 @@ class LiteratureReviewAgent:
             "_fallback": True,
             "_note": "Global LLM synthesis failed; results are merged chunk-level analyses without cross-chunk synthesis.",
         }
+
+    @staticmethod
+    def _keyword_groups_to_expanded(
+        keyword_groups: List[List[str]],
+    ) -> Dict[str, Any]:
+        """Convert keyword_groups to expanded_keywords format.
+
+        This allows the pipeline to work uniformly whether keyword_groups
+        come from user input or from LLM keyword expansion.
+        """
+        concepts = []
+        for idx, group in enumerate(keyword_groups):
+            main = group[0] if group else f"concept_{idx}"
+            concepts.append({
+                "concept": main,
+                "synonyms": group[1:] if len(group) > 1 else [],
+                "variants": [],
+                "broader_terms": [],
+                "narrower_terms": [],
+                "exclude_terms": [],
+                "notes": f"Group {idx + 1} from user-defined keyword_groups",
+            })
+        return {"concepts": concepts}

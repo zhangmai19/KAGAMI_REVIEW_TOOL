@@ -1,5 +1,6 @@
 """Semantic Scholar academic database retriever."""
 
+import os
 from typing import List, Optional
 
 import httpx
@@ -8,6 +9,7 @@ from tenacity import retry, stop_after_attempt, wait_exponential
 from models.paper import Paper
 from retriever.base import BaseRetriever
 from utils.text import clean_abstract, normalize_doi
+from utils.boolean_filter import boolean_filter
 from utils.logging import get_logger
 
 logger = get_logger(__name__)
@@ -25,7 +27,7 @@ class SemanticScholarRetriever(BaseRetriever):
     FIELDS = "paperId,title,abstract,authors,year,venue,externalIds,citationCount,url"
 
     def __init__(self, api_key: Optional[str] = None):
-        self.api_key = api_key
+        self.api_key = api_key or os.getenv("SEMANTIC_SCHOLAR_API_KEY")
 
     @property
     def name(self) -> str:
@@ -48,6 +50,7 @@ class SemanticScholarRetriever(BaseRetriever):
         max_results: int = 100,
         from_year: Optional[int] = None,
         to_year: Optional[int] = None,
+        keyword_groups: Optional[List[List[str]]] = None,
     ) -> List[Paper]:
         """Search Semantic Scholar for papers matching the query."""
         papers: List[Paper] = []
@@ -127,5 +130,10 @@ class SemanticScholarRetriever(BaseRetriever):
             if offset > 1000:  # Safety limit
                 break
 
-        logger.info(f"Semantic Scholar: retrieved {len(papers)} papers")
-        return papers
+        logger.info(f"Semantic Scholar: retrieved {len(papers)} papers before filtering")
+
+        if keyword_groups:
+            papers = boolean_filter(papers, keyword_groups)
+            logger.info(f"After boolean filtering: {len(papers)} papers")
+
+        return papers[:max_results]

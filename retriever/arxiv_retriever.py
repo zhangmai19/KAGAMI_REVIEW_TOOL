@@ -9,6 +9,7 @@ from tenacity import retry, stop_after_attempt, wait_exponential
 from models.paper import Paper
 from retriever.base import BaseRetriever
 from utils.text import clean_abstract, normalize_doi
+from utils.boolean_filter import boolean_filter
 from utils.logging import get_logger
 
 logger = get_logger(__name__)
@@ -39,6 +40,7 @@ class ArxivRetriever(BaseRetriever):
         max_results: int = 100,
         from_year: Optional[int] = None,
         to_year: Optional[int] = None,
+        keyword_groups: Optional[List[List[str]]] = None,
     ) -> List[Paper]:
         """Search arXiv for papers matching the query."""
         papers: List[Paper] = []
@@ -84,8 +86,13 @@ class ArxivRetriever(BaseRetriever):
             if start > 500:
                 break
 
-        logger.info(f"arXiv: retrieved {len(papers)} papers")
-        return papers
+        logger.info(f"arXiv: retrieved {len(papers)} papers before filtering")
+
+        if keyword_groups:
+            papers = boolean_filter(papers, keyword_groups)
+            logger.info(f"After boolean filtering: {len(papers)} papers")
+
+        return papers[:max_results]
 
     def _parse_xml(self, xml_text: str) -> List[Paper]:
         """Parse arXiv Atom XML response into Paper objects."""
