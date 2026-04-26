@@ -24,7 +24,12 @@ def review_from_ris(
     topic: str = typer.Option(..., "--topic", "-t", help="Research topic"),
     ris_path: str = typer.Option(..., "--ris-path", "-r", help="Path to RIS file"),
     output_dir: str = typer.Option("data/output", "--output", "-o", help="Output directory"),
-    model: str = typer.Option("gpt-4o-mini", "--model", "-m", help="LLM model name"),
+    model: str = typer.Option("gpt-4o-mini", "--model", "-m", help="LLM model for chunk analysis"),
+    report_model: Optional[str] = typer.Option(
+        None,
+        "--report-model",
+        help="LLM model for final synthesis (use a stronger model). Defaults to --model.",
+    ),
     max_tokens: int = typer.Option(12000, "--max-tokens", help="Max tokens per chunk"),
     max_papers: int = typer.Option(25, "--max-papers", help="Max papers per chunk"),
 ):
@@ -33,6 +38,7 @@ def review_from_ris(
 
     agent = LiteratureReviewAgent(
         model=model,
+        report_model=report_model or model,
         output_dir=output_dir,
         max_tokens_per_chunk=max_tokens,
         max_papers_per_chunk=max_papers,
@@ -48,7 +54,12 @@ def review_from_bib(
     topic: str = typer.Option(..., "--topic", "-t", help="Research topic"),
     bib_path: str = typer.Option(..., "--bib-path", "-b", help="Path to BibTeX file"),
     output_dir: str = typer.Option("data/output", "--output", "-o", help="Output directory"),
-    model: str = typer.Option("gpt-4o-mini", "--model", "-m", help="LLM model name"),
+    model: str = typer.Option("gpt-4o-mini", "--model", "-m", help="LLM model for chunk analysis"),
+    report_model: Optional[str] = typer.Option(
+        None,
+        "--report-model",
+        help="LLM model for final synthesis (use a stronger model). Defaults to --model.",
+    ),
     max_tokens: int = typer.Option(12000, "--max-tokens", help="Max tokens per chunk"),
     max_papers: int = typer.Option(25, "--max-papers", help="Max papers per chunk"),
 ):
@@ -57,6 +68,7 @@ def review_from_bib(
 
     agent = LiteratureReviewAgent(
         model=model,
+        report_model=report_model or model,
         output_dir=output_dir,
         max_tokens_per_chunk=max_tokens,
         max_papers_per_chunk=max_papers,
@@ -72,7 +84,12 @@ def review_from_csv(
     topic: str = typer.Option(..., "--topic", "-t", help="Research topic"),
     csv_path: str = typer.Option(..., "--csv-path", "-c", help="Path to CSV file"),
     output_dir: str = typer.Option("data/output", "--output", "-o", help="Output directory"),
-    model: str = typer.Option("gpt-4o-mini", "--model", "-m", help="LLM model name"),
+    model: str = typer.Option("gpt-4o-mini", "--model", "-m", help="LLM model for chunk analysis"),
+    report_model: Optional[str] = typer.Option(
+        None,
+        "--report-model",
+        help="LLM model for final synthesis (use a stronger model). Defaults to --model.",
+    ),
     max_tokens: int = typer.Option(12000, "--max-tokens", help="Max tokens per chunk"),
     max_papers: int = typer.Option(25, "--max-papers", help="Max papers per chunk"),
 ):
@@ -81,6 +98,7 @@ def review_from_csv(
 
     agent = LiteratureReviewAgent(
         model=model,
+        report_model=report_model or model,
         output_dir=output_dir,
         max_tokens_per_chunk=max_tokens,
         max_papers_per_chunk=max_papers,
@@ -110,7 +128,16 @@ def review_from_search(
     from_year: Optional[int] = typer.Option(None, "--from-year", help="Start year filter"),
     to_year: Optional[int] = typer.Option(None, "--to-year", help="End year filter"),
     output_dir: str = typer.Option("data/output", "--output", "-o", help="Output directory"),
-    model: str = typer.Option("gpt-4o-mini", "--model", "-m", help="LLM model name"),
+    model: str = typer.Option("gpt-4o-mini", "--model", "-m", help="LLM model for keyword expansion & chunk analysis"),
+    report_model: Optional[str] = typer.Option(
+        None,
+        "--report-model",
+        "-r",
+        help=(
+            "LLM model for the final synthesis/report step (use a stronger model). "
+            "Defaults to --model if not specified."
+        ),
+    ),
     max_tokens: int = typer.Option(12000, "--max-tokens", help="Max tokens per chunk"),
     max_papers_per_chunk: int = typer.Option(25, "--max-papers", help="Max papers per chunk"),
 ):
@@ -131,6 +158,12 @@ def review_from_search(
     """
     load_dotenv()
 
+    effective_report_model = report_model or model
+    if effective_report_model != model:
+        console.print(
+            f"[bold]Models:[/bold] analysis={model}, synthesis={effective_report_model}"
+        )
+
     if not keywords:
         keywords = [topic]
 
@@ -148,6 +181,7 @@ def review_from_search(
 
     agent = LiteratureReviewAgent(
         model=model,
+        report_model=report_model or model,
         output_dir=output_dir,
         max_tokens_per_chunk=max_tokens,
         max_papers_per_chunk=max_papers_per_chunk,

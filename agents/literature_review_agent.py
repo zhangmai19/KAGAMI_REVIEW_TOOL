@@ -47,12 +47,14 @@ class LiteratureReviewAgent:
     def __init__(
         self,
         model: str = "gpt-4o-mini",
+        report_model: Optional[str] = None,
         output_dir: str = "data/output",
         max_tokens_per_chunk: int = 12000,
         max_papers_per_chunk: int = 25,
         dedup_threshold: float = 0.95,
     ):
         self.model = model
+        self.report_model = report_model or model
         self.output_dir = output_dir
         self.max_tokens_per_chunk = max_tokens_per_chunk
         self.max_papers_per_chunk = max_papers_per_chunk
@@ -61,7 +63,10 @@ class LiteratureReviewAgent:
         self.llm_client = LLMClient(model=model)
         self.keyword_expander = KeywordExpander(self.llm_client)
         self.chunk_analyzer = ChunkAnalyzer(self.llm_client)
-        self.synthesizer = Synthesizer(self.llm_client)
+
+        # Synthesizer uses the stronger report model (or same model if not specified)
+        report_client = LLMClient(model=self.report_model) if self.report_model != model else self.llm_client
+        self.synthesizer = Synthesizer(report_client)
         self.report_writer = ReportWriter(output_dir)
 
     def review_from_file(
